@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="EDTECH569 Final Portfolio by Alexis Delevett exploring AI, dystopia, and education.">
+    <title>Alexis Delevett - EDTECH569 Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav id="navbar">
+        <div class="nav-brand">AD.</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#abstract">Abstract</a></li>
+            <li><a href="#artifacts">Artifacts</a></li>
+            <li><a href="#reflection">Reflection</a></li>
+            <li><a href="#ai-usage">AI Usage</a></li>
+            <li><a href="#references">References</a></li>
+        </ul>
+    </nav>
+
+    <header id="home" class="hero">
+        <div class="hero-content fade-in">
+            <p class="subtitle">EDTECH569 Final Portfolio</p>
+            <h1>Dystopian Visions &amp; AI</h1>
+            <p class="author">By Alexis Delevett</p>
+            <p class="date" id="current-date"></p>
+            <p class="instructor">Instructor: [Instructor Name]</p>
+            <a href="#abstract" class="btn-primary">Explore Portfolio</a>
+        </div>
+        <div class="hero-bg"></div>
+    </header>
+
+    <main>
+        <section id="abstract" class="section-container">
+            <h2 class="section-title fade-in">Abstract</h2>
+            <div class="card glass fade-in">
+                <p>This portfolio explores the intersection of artificial intelligence, dystopian visions, and education, drawing on literature, film, and original creations. At its core, it investigates how dystopia and utopia function at both personal and societal levels as archetypes to organize human activity. By examining the cognitive and behavioral evolution of protagonists in dystopian narratives alongside the non-deterministic, potentially biased characteristics of transformative AI technologies, this collection questions the "combination of mass-production techniques with a techno-centric aesthetic" and its compatibility with the goals of education in a democracy.</p>
+                <p>Through four diverse artifacts—a simulated livestream integrating academic literature, a research poster juxtaposing the computability of the human mind with AI personhood, an application mapping utopian theory to practice, and a creative short story exploring AI-powered surveillance—this project advocates for critical reflection, autonomy, and the preservation of human flourishing against the backdrop of algorithmic processing and centralized technological systems.</p>
+            </div>
+        </section>
+
+        <section id="artifacts" class="section-container">
+            <h2 class="section-title fade-in">Artifacts</h2>
+            
+            <div class="artifact-grid">
+                <!-- Artifact 1 -->
+                <article class="card artifact-card glass fade-in">
+                    <div class="artifact-image">
+                        <img src="relivestream_screenshot.png" alt="Simulated Livestream Comments Generator Screenshot" loading="lazy">
+                    </div>
+                    <div class="artifact-content">
+                        <span class="tag">Interactive App</span>
+                        <h3>Simulated Livestream Comments Generator</h3>
+                        <p>A gamified scenario that pairs a video with an academic paper, having AI generate comments reflecting their shared concepts in a simulated livestream comments section. It explores public discourse and algorithmic synthesis.</p>
+                        <a href="https://huggingface.co/spaces/adelevett/readstream" target="_blank" rel="noopener noreferrer" class="btn-secondary">View Application</a>
+                    </div>
+                </article>
+
+                <!-- Artifact 2 -->
+                <article class="card artifact-card glass fade-in">
+                    <div class="artifact-image placeholder-image poster-bg">
+                        <div class="pdf-icon">📄</div>
+                    </div>
+                    <div class="artifact-content">
+                        <span class="tag">Research Poster</span>
+                        <h3>The Computability of the Human Mind</h3>
+                        <p>Drawing on Krämer's (1996) delineation between Leibniz' universal calculus and Turing's universal computer to juxtapose the embryonic stages of artificial intelligence and play with the ascription of personhood.</p>
+                        <a href="research_poster.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary">View Poster (PDF)</a>
+                    </div>
+                </article>
+
+                <!-- Artifact 3 -->
+                <article class="card artifact-card glass fade-in">
+                    <div class="artifact-image">
+                        <img src="mapping_utopia_screenshot.png" alt="Mapping Utopian Theory to Practice Screenshot" loading="lazy">
+                    </div>
+                    <div class="artifact-content">
+                        <span class="tag">Interactive App</span>
+                        <h3>Mapping Utopian Theory to Practice</h3>
+                        <p>Inspired by Rob Hopkins' communication about possible futures, this app attempts to map the projects representing utopian futures realized today with open access scholarly literature on utopian futures and education.</p>
+                        <a href="https://adelevett.github.io/MAPPING_UTOPIA_THEORY_PRACTICE/" target="_blank" rel="noopener noreferrer" class="btn-secondary">View Application</a>
+                    </div>
+                </article>
+
+                <!-- Artifact 4 -->
+                <article class="card artifact-card glass fade-in" id="artifact-story">
+                    <div class="artifact-image placeholder-image story-bg">
+                        <div class="story-icon">📖</div>
+                    </div>
+                    <div class="artifact-content">
+                        <span class="tag">Short Story</span>
+                        <h3>Clockwork Orange Tabby Cat</h3>
+                        <p>An homage to A Clockwork Orange that captures the rough character arc of the protagonist while reflecting on discussions around seamless integration of AI chatbots in everyday life and increasingly pervasive surveillance tech.</p>
+                        <button id="open-story-modal" class="btn-secondary">Read Story</button>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="reflection" class="section-container">
+            <h2 class="section-title fade-in">Reflection</h2>
+            <div class="card glass reflection-content fade-in">
+                <p>Throughout EDTECH569, I've had the opportunity to critically examine the intersection of artificial intelligence, education, and our societal trajectory through the lens of utopian and dystopian visions. This course has led me to realize that while technology often mirrors our deepest societal constraints on human flourishing, the emotional blueprint provided by utopian imagination is what makes true flourishing possible.</p>
+                <p>One of the most striking realizations came during my reading of Chen et al. (2022) on AI in Education (AIEd). The timing of the article, just before the landscape-shifting ChatGPT 3.5 release, presented a perfect opportunity to perceive the field prior to the flood of GenAI discussion. It became clear that the underlying technology for tutoring systems and natural language processing has been significantly augmented by the generative properties of large language models. However, the co-occurring characteristics of this transformative technology as inherently non-deterministic, potentially biased, and largely controlled by profit-seeking corporations represent an interesting dystopian angle just as the utopian promise of highly intelligent technologies has become approximately fulfilled. Much like Orwell's unease with industrial automation, the "combination of mass-production techniques with a techno-centric aesthetic" is not generally seen as compatible with the goals of education in a democracy.</p>
+                <p>This tension was further illuminated by exploring the original short story and movie versions of <em>Minority Report</em> alongside readings from Doctorow and Williamson. These works anticipate the tension between technological systems and the values of education in a democracy. In particular, the assertions about the role of technology in classrooms may foreclose educators' trained expertise and judgment, in effect outsourcing pedagogical decisions and freedoms to centralized systems out of their purview. Given this responsibility, I believe it is important to continue practicing adoption with an open mind while carefully weighing the evidence. For every practice that AI undercuts, how many new ones open up, and for whom? Under which circumstances are AI systems supportive of unbiased fact-finding and fair deliberations about essential truths?</p>
+                <p>Similarly, when examining the nature of data and algorithmic processing in government through H.G. Wells' <em>The Sleeper Awakes</em>, I found that accountable automation is contingent on existing standards of transparency and capacity. A data-driven mode of governance alone is insufficient without stable anchors that account for the full picture and the history of political struggle. AI adds a novel element of synthesis to the machinery of predictive ruling, but it is nothing like an objective truth engine that would make automatic government fair and transparent on its own.</p>
+                <p>Finally, confronting the environmental reality of AI was a difficult but necessary challenge. It is hard to imagine technological developments that do not feed into the spiral of increasing impact on the environment. I appreciate the candid perspective offered by Selwyn on what technology would actually have to look like to be compatible with planetary boundaries. In the context of economic pressures, companies may feel incentivized to frame their operations as serving long-term progress to justify their resource impacts. This realization influenced my decision to abstain from generating an AI-powered browser game for my portfolio, avoiding the irony of spending down earth's resources for a mere flight of fancy.</p>
+                <p>In conclusion, this course has reinforced the importance of the enlightenment ideals reflected in today's education, such as critical thinking and reasoned character development. In an age that has brought the realization of utopias of the past for many, the increasing threats to democracy and the externalities of an inequality-breeding economic system require not just critical reflection, but also space for autonomy and alternative forms of existence—a way to escape the machine.</p>
+            </div>
+        </section>
+
+        <section id="ai-usage" class="section-container">
+            <h2 class="section-title fade-in">Declaration of A.I. Usage</h2>
+            <div class="card glass fade-in">
+                <p>Artificial Intelligence was utilized purposefully throughout the brainstorming, design, and execution phases of this portfolio, with a focus on critical application and disclosure:</p>
+                <ul class="usage-list">
+                    <li><strong>Ideation and Synthesis:</strong> AI models (such as Claude and ChatGPT) were used as conversational partners to brainstorm creative angles, such as connecting A Clockwork Orange with modern AI surveillance tools for the short story.</li>
+                    <li><strong>Code Generation:</strong> The "Mapping Utopian Theory to Practice" web application was developed with the assistance of Google Antigravity, which generated the foundational code, while Google Gemini was used for backend inference tasks.</li>
+                    <li><strong>Content Formatting:</strong> AI was used to assist in organizing and formatting this final portfolio website, compiling journal entries, and generating boilerplate HTML/CSS to ensure a polished aesthetic presentation, all while preserving original student writing.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="references" class="section-container">
+            <h2 class="section-title fade-in">References</h2>
+            <div class="card glass fade-in">
+                <div class="reference-item">
+                    <p>Chen, X., Zou, D., Xie, H., Cheng, G., &amp; Liu, C. (2022). Two decades of artificial intelligence in education: Contributors, collaborations, research topics, challenges, and future directions. <em>Educational Technology &amp; Society</em>, 25(1), 28–47.</p>
+                </div>
+                <div class="reference-item">
+                    <p>Claeys, G. (2010). The origins of dystopia: Wells, Huxley and Orwell. In G. Claeys (Ed.), <em>The Cambridge Companion to Utopian Literature</em> (pp. 107–131). Cambridge University Press.</p>
+                </div>
+                <div class="reference-item">
+                    <p>Giroux, H. A. (2013). Beyond dystopian education in a neoliberal society. <em>Fast Capitalism</em>, 10(1).</p>
+                </div>
+                <div class="reference-item">
+                    <p>Krämer, S. (1996). Mind, symbolism, formalism: Is Leibniz a precursor of artificial intelligence? <em>Knowledge Organization</em>, 23, 83-87.</p>
+                </div>
+                <div class="reference-item">
+                    <p>Pepple, D., &amp; Muthuthantrige, N. (2026). Artificial intelligence, innovation and the new architecture of exploitation: Towards reconfiguring humanness in the age of algorithmic labour. <em>Journal of Innovation &amp; Knowledge</em>, 11(1), 100878.</p>
+                </div>
+                <div class="reference-item">
+                    <p>Rosa A., &amp; Yokomizo C. (2026). Systematic literature review on artificial intelligence in education (AIED): proposing a conceptual structure. <em>Artificial Intelligence in Education</em>, 2(1), 49–66.</p>
+                </div>
+                <div class="reference-item">
+                    <p>Zohar, E., Bloom, P., &amp; Inzlicht, M. (2026). Against frictionless AI. <em>Communications Psychology</em>, 4(1), Article 402.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal for the Short Story -->
+    <div id="story-modal" class="modal">
+        <div class="modal-content glass">
+            <span class="close-btn">&times;</span>
+            <div class="story-text">
+                <h2>Clockwork Orange Tabby Cat</h2>
+                <div class="prose">
+                    <h3>Prologue</h3>
+                    <p>"I'm loving this, and why shouldn't I?" the orange tabby we'll call Alex thought to himself. "I practically own the block, what with these sissies running scared — love chasing after them and giving them a good swat, love to see the fear in their eyes. Eyes like mine that, yes, in another life might be putting the fright into me. But not this time around. It's all mine. Mine mine mine."</p>
+                    <p>"Now let me go check if some of that kibble was put out for me."</p>
+                    <hr>
+                    <h3>Scene 1 — Private Chat</h3>
+                    <p><strong>CARRIE:</strong> Arghh, Maggie just came home in tatters, she looks really shook up... might even be bleeding! Ugh, whoever is doing that to her is gonna pay.</p>
+                    <p>⚙️ <strong>CLAUDE IS THINKING...</strong> (Tap to answer now)</p>
+                    <p><strong>*TAP*</strong></p>
+                    <p><strong>CLAUDE:</strong> Oh no, poor Maggie — and poor you. Coming home to that after the week you've already had is the last thing you needed. Do you want me to recall the care instructions we developed last time?</p>
+                    <p><strong>CARRIE:</strong> it's fine I got it but isn't there SOMETHING we can do about this</p>
+                    <p>⚙️ <strong>CLAUDE IS THINKING...</strong> (Tap to answer now)<br>
+                    <em>🧠 Checking earlier conversations…</em><br>
+                    <em>🔍 Searching: Image Classification</em><br>
+                    <em>🔍 Searching: Signal Triangulation</em></p>
+                    <p>Actually — I think you might already have most of what this would need. Want me to put together how you might put a stop to this with a little bit of help from your friends?</p>
+                    <p><strong>CARRIE:</strong> Brilliant!</p>
+                    <hr>
+                    <h3>Scene 2 — Group Chat</h3>
+                    <p><strong>CARRIE:</strong> Hey everyone, guess what — another day, another beating for my poor Maggie 😪😡 I've just about had enough! My Claude — love Claude — just came up with a genius idea. Apparently there's a way to rig our cameras to do some detective work for us and help us nail the perp 🙀 Check out this artifact and let me know what y'all think. Together we can put an end to this beast's reign of terror!</p>
+                    <p>📎 <strong>SHARED ARTIFACT:</strong> Neighbourhood Audio Surveillance Setup — Identifying a Problem Animal Using Outdoor Camera Audio & Some Math</p>
+                    <p><strong>DONNA:</strong> Oh my GOD Rachel I've been saying this for months!! Whatever attacked Mr. Tibbs in October I'm convinced it's the same one. I'm IN, whatever it takes. Please please please Jeff can I haz it 🤩</p>
+                    <p><strong>PETE:</strong> I'll be honest I don't totally understand the technical side but if Donna's in I'm in 😂 my camera faces the elm tree, is that useful?</p>
+                    <p><strong>CARRIE:</strong> Claude says corner coverage is actually ideal for triangulation! Jeff, what do you think is Claude getting the details right —</p>
+                    <p><strong>JAMES:</strong> Wait, triangulation? Like — we're actually tracking something?</p>
+                    <p><strong>CARRIE:</strong> That's the idea 😈</p>
+                    <p><strong>JAMES:</strong> Okay I kind of love this</p>
+                    <p><strong>CAROL:</strong> Just want to make sure — this is all just for identification, right? Once we know what it is, we contact animal control?</p>
+                    <p><strong>CARRIE:</strong> Unless if it's small enough I'd just about be ready to gang up on it for some instant justice 🙈 only half kidding! Anybody wanna join me storm Jeff's castle???</p>
+                    <hr>
+                    <h3>Scene 3 — Group Chat</h3>
+                    <p><strong>CARRIE:</strong> Okay for those of you who couldn't make it to Jeff's last night — first of all you MISSED OUT, second of all we're pretty soon going to have everybody's cameras scanning for activity — actual wizard</p>
+                    <p><strong>DONNA:</strong> JEFF. 👏 JEFF. 👏 JEFF. 👏</p>
+                    <p><strong>PETE:</strong> honestly didn't understand what he was doing but it was mesmerizing</p>
+                    <p><strong>CARRIE:</strong> See this is why I keep him around 😘</p>
+                    <p><strong>JAMES:</strong> so what does "flagging" actually look like, like do we get a notification or</p>
+                    <p><strong>CAROL:</strong> Hah like we will ever know -- black box make bully disappear</p>
+                    <p><strong>PETE:</strong> sounds ominous 👀</p>
+                    <p><strong>CARRIE:</strong> OKAY so I have a proposal 🎉 Jeff said it should be live by Thursday night and I think we should make an occasion of it — watch party at mine? I'll do snacks, we can have the notification sound on speaker, first hit of the night gets to name the suspect</p>
+                    <p><strong>DONNA:</strong> ALREADY IN</p>
+                    <p><strong>PETE:</strong> in</p>
+                    <p><strong>JAMES:</strong> lol yes obviously</p>
+                    <p><strong>CAROL:</strong> ...okay fine yes 😂</p>
+                    <p><strong>CARRIE:</strong> Brilliant!</p>
+                    <hr>
+                    <h3>Scene 4 — Private Chat</h3>
+                    <p><strong>CARRIE:</strong> I think we might be getting somewhere! Something keeps popping up, I can't really tell but someone is definitely hitting a bowl of kibble somebody leaves out over on Elm...</p>
+                    <p>⚙️ <strong>CLAUDE IS THINKING...</strong> (Tap to answer now)</p>
+                    <p><strong>CARRIE:</strong> I'm honestly tempted to mix something in there to end this right now, or like TNR or whatever you call it, we'd have to figure out how to prevent OUR cats to end up with it tho</p>
+                    <p>⚙️ <strong>CLAUDE IS THINKING...</strong> (Tap to answer now)<br>
+                    <em>🔍 Searching: TNR feral cat sedation protocols...</em><br>
+                    <em>🔍 Searching: Oral sedatives safety profile felines...</em></p>
+                    <p><strong>CLAUDE:</strong> We can “end this right now” by following a recognized approach in feral cat management under the Trap-Neuter-Release paradigm. In veterinary and TNR contexts, administering a sedative or anxiolytic (anti-anxiety) medication in food is sometimes used to safely trap highly fractious or aggressive cats. This minimizes stress and prevents injury to both the animal and the handlers. Depending on the timing of the intervention to male cats it may result in significant reductions in aggression.</p>
+                    <p>However, professionals generally recommend this be done under veterinary supervision. The primary challenges involve accurate dosing—since the animal's exact weight is unknown—and ensuring the animal's safety after consumption.</p>
+                    <p><strong>CARRIE:</strong> Well we have some leftover liquid Gabapentin from Maggie's surgery, remember? What ever it is make sure it knocks him out so I don't have to deal with that <em>THING</em> anymore</p>
+                    <p><strong>CLAUDE:</strong> Gabapentin is a chemical compound frequently used in veterinary medicine for its sedative and anxiolytic effects. You are correct that it is considered to have a wide safety margin, and it is often considered the gold standard for reducing anxiety and aggression in feral cats prior to trapping.</p>
+                    <p>Factually, the physiological effects begin within 1 to 2 hours of ingestion. While it is generally safe regarding toxicity, the primary side effect is significant ataxia—meaning a loss of coordination, clumsiness, or stumbling.</p>
+                    <p>The main risk of administering this to a free-roaming outdoor animal is environmental. An outdoor cat experiencing ataxia becomes highly vulnerable, as they cannot jump, evade predators, or safely navigate hazards like roads and vehicles. If this method is used, the cat must be continuously monitored and secured before the ataxia takes full effect.</p>
+                    <p><strong>CARRIE:</strong> Right, of course, got it, just a small dose to take the edge off so we can finally trap it. Better a little sleepy than tearing Maggie's ear off again! Anyway, I know Maggie for sure won't touch any of the Nature's Way you recommended to help with her upset tummy that other day, it must taste awful. But for a desperate stray we might just get it to bite...</p>
+                    <hr>
+                    <h3>Scene 5 — Private Chat</h3>
+                    <p><strong>CARRIE:</strong> Oh my God, I saw it just now. On Elm. I was... It was just stumbling.</p>
+                    <p>⚙️ <strong>CLAUDE IS THINKING...</strong> (Tap to answer now)</p>
+                    <p><strong>CARRIE:</strong> I was actually accelerating when I first saw it.</p>
+                    <p>⚙️ <strong>CLAUDE IS THINKING...</strong> (Tap to answer now)</p>
+                    <p><strong>CARRIE:</strong> Don't judge, I mean, we’ve been terrorized for weeks on end. But then I mean it was clearly suffering, it.. he didn't even really respond as I scooped him up in my blanket. Anyway I thought you said the chemical should be safe</p>
+                    <hr>
+                    <h3>Coda</h3>
+                    <p>The sun has moved off the porch but the boards are still warm. Like clockwork, Alex is arranged just so, a furry, beating heart twisted bun.</p>
+                    <p>Somewhere down the block two cats are having a disagreement — a rising yowl followed by a definitive screech.</p>
+                    <p>Ears twitching, his eyes open a fraction before blinking shut with a yawn, just in time to resettle his chin on his now outstretched leg. Later a door opens and a voice calls his name, and he is awash in the feeling of home.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Alexis Delevett. Created for EDTECH569.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
