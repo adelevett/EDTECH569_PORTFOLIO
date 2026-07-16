@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Environmental Impact Pixel Art Game Concept</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .concept-container {
+            max-width: 900px;
+            margin: 6rem auto;
+            padding: 0 5%;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+        .back-link:hover {
+            color: var(--accent-hover);
+        }
+        .sketch-image {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        .prompt-text h3 {
+            color: var(--accent);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .prompt-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            line-height: 1.8;
+        }
+        .prompt-intro {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            margin-bottom: 2.5rem;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <main class="concept-container">
+        <a href="index.html#artifacts" class="back-link">← Back to Portfolio</a>
+        
+        <h1 class="section-title fade-in visible">Environmental Impact Game Concept</h1>
+        
+        <div class="card glass fade-in visible">
+            <div class="prompt-intro">
+                "I explored using the expanding capabilities of today's AI to generate yet another artifact for my course portfolio which I imagined could be achieved with a prompt to build a simple arcade-style game as sketched below. But, for now, I'm satisfied with the idea of leaving it as is and avoiding the irony of spending down earth's resources for a mere flight of fancy." (From Journal Entry #6)
+            </div>
+
+            <img src="cloudlift_sketch.jpg" alt="Hand drawn sketch of the Cloudlift game concept" class="sketch-image">
+
+            <div class="prompt-text">
+                <h2>The Unexecuted Prompt</h2>
+                
+                <p>Build a browser-based pixel art game in the style of a 1980s arcade game — chunky pixels, limited color palette (16-32 colors), no smooth gradients, everything dithered.</p>
+
+                <h3>Scene</h3>
+                <p>A wide beach. Mostly flat sand. A few beach umbrellas and chairs scattered in the background, sparse. The horizon sits about one third from the top of the screen — ocean beyond it, waves rolling in continuously from the horizon and crashing as foaming whitecaps at the shoreline. Each wave deposits birds on the sand as it retreats. The sky above the horizon is occupied by a fluffy white clouds. The clouds are suspending dark, dense, silhouettes of large data centers visibly embedded in and perching above them. The clouds sit high initially but descend slowly and continuously over time.</p>
+
+                <h3>Volunteers</h3>
+                <p>Pixel-art human figures walk the beach. Their default behavior is to approach beached birds and paint them with oil — a brief animation, then the bird changes color and begins slowly floating upward toward the cloud layer. Each bird that reaches the clouds visibly lifts them a few pixels. Enough birds and the clouds rise; too few and they descend.</p>
+
+                <h3>Resource Split Mechanic</h3>
+                <p>The player can click or tap volunteers to redirect them from manual painting to a data-labeling station at the edge of the screen — a small terminal or clipboard icon. Volunteers at stations contribute to an automation meter. As the meter reaches thresholds, auto-painter drones appear and begin painting birds without volunteer assignment. The tradeoff: divert too many volunteers too fast and unpainted birds pile up faster than the auto-painters can handle; stay fully manual and you can never keep pace as wave frequency increases over time. Waves arrive faster and deposit more birds as the game progresses.</p>
+
+                <h3>Win State</h3>
+                <p>Clouds fully lifted and held, hiding any data centers just in time to reveal a setting sun as volunteers change into clothes suitable for a Miami-style sunset beach scene. Beach volleyball, sunbathers looking up to enjoy the sunset, drinks, flamingos, dolphins leaping in the sparkling waveless ocean. Still pixel art, but warm golden and pink tones, festive, crowded with life. Hold this state for before the game ends with a celebration screen.</p>
+
+                <h3>Fail State</h3>
+                <p>Progressive encroachment. First the sky shrinks as clouds descend. Then the ocean horizon disappears behind a low mist. Then the mist reaches the beach itself, turning everything grey and obscured. Then the data centers make contact with the sand and waves — the waves wash over them, and birds riding each wave begin landing on the data center rooftops and painting them white with deposits. The data centers are now the rocks. Game over screen.</p>
+
+                <h3>Pacing</h3>
+                <p>The game should feel manageable for the first 90 seconds — enough time to understand the mechanic. Wave frequency should increase noticeably around the two-minute mark. Auto-painters should feel meaningful but never sufficient on their own — manual volunteers should always matter. Cloud descent rate should feel slow enough to be hopeful and fast enough to create pressure. The player should always feel like they're one good decision away from stabilizing.</p>
+
+                <h3>Aesthetic Notes</h3>
+                <p>The birds should be simple, recognizable pixel seabirds — maybe a gull silhouette. Painted birds should have a visible oil-sheen color shift, maybe dark iridescent pixels. Floating painted birds should drift slowly with a gentle bobbing motion. Waves should have a looping animation with visible whitecap pixels. No music required but simple chiptune sound effects for wave crash, bird landing, painting completion, and cloud shift would be ideal if achievable.</p>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
