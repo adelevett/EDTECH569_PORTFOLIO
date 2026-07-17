@@ -1,0 +1,42 @@
+{
+  "Simulated Livestream Comments Generator": {
+    "product_type": "Product H: Develop a Game or Gamified Scenario",
+    "genre": "5: Academic works (articles, chapters)",
+    "level": "Level 1",
+    "work_effort": "High effort",
+    "satisfaction": "Satisfied",
+    "time_spent": "8 hours: 0 min"
+  },
+  "The Computability of Personhood": {
+    "product_type": "Product E1: Develop a research poster",
+    "genre": "5: Academic works (articles, chapters)",
+    "level": "Level 2",
+    "work_effort": "High effort",
+    "satisfaction": "Elated",
+    "time_spent": "8 hours: 0 min"
+  },
+  "Mapping Utopian Theory to Practice": {
+    "product_type": "Product E2: Develop an interactive graphic",
+    "genre": "5: Academic works (articles, chapters)",
+    "level": "Level 3",
+    "work_effort": "Intense effort",
+    "satisfaction": "Very Pleased",
+    "time_spent": "10 hours: 0 min"
+  },
+  "A Clockwork Orange Tabby Cat": {
+    "product_type": "Product F: Write short-form fiction or poetry",
+    "genre": "1: Literature (novels)",
+    "level": "Level 2",
+    "work_effort": "Moderate effort",
+    "satisfaction": "Elated",
+    "time_spent": "> 10 hours: 45 min"
+  },
+  "Cloudlift: Digital sublime and the environment": {
+    "product_type": "Product H: Develop a Game or Gamified Scenario",
+    "genre": "4: Academic works (books)",
+    "level": "Level 1",
+    "work_effort": "Slight effort",
+    "satisfaction": "Elated",
+    "time_spent": "4 hours: 0 min"
+  }
+}
