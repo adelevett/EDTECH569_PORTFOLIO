@@ -351,6 +351,10 @@ a:hover {
     overflow: auto;
 }
 
+.modal.is-open {
+    display: block;
+}
+
 .modal-content {
     margin: 5% auto;
     width: 90%;

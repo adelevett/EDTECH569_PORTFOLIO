@@ -97,7 +97,7 @@
                         <h3>A Clockwork Orange Tabby Cat</h3>
                         <p>An homage to A Clockwork Orange (Burgess, 1986) that captures the rough character arc of the protagonist while reflecting on discussions around seamless integration of AI chatbots in everyday life and increasingly pervasive surveillance tech.</p>
 						<p><i>AI involvement Type 2</i></p>
-                        <button class="btn-secondary open-modal-btn" data-modal="story-modal">Read Story</button>
+                        <button class="btn-secondary open-modal-btn" data-modal="story-modal" onclick="document.getElementById('story-modal').classList.add('is-open');document.body.style.overflow='hidden'">Read Story</button>
                     </div>
                 </article>
 
@@ -125,7 +125,7 @@
                         <h3>Three Blind Mice &amp; the Captain's Wife</h3>
                         <p>Three digital navigators chase the legendary data-ship at Port Folio through the Sea-All, desperate to reach Pass Inggrade and cut themselves free from their tethers. </p>
 						<p><i>AI involvement Type 2</i></p>
-                        <button class="btn-secondary open-modal-btn" data-modal="mice-modal">Read Story</button>
+                        <button class="btn-secondary open-modal-btn" data-modal="mice-modal" onclick="document.getElementById('mice-modal').classList.add('is-open');document.body.style.overflow='hidden'">Read Story</button>
                     </div>
                 </article>
             </div>
@@ -201,9 +201,9 @@
     </main>
 
     <!-- Modal for the Short Story -->
-    <div id="story-modal" class="modal">
+    <div id="story-modal" class="modal" onclick="if(event.target===this){this.classList.remove('is-open');document.body.style.overflow='auto'}">
         <div class="modal-content glass">
-            <span class="close-btn">&times;</span>
+            <span class="close-btn" onclick="document.getElementById('story-modal').classList.remove('is-open');document.body.style.overflow='auto'">&times;</span>
             <div class="story-text">
                 <h2>Clockwork Orange Tabby Cat</h2>
                 <div class="prose">
@@ -284,13 +284,13 @@
 
 
     <!-- Modal for the Mice Story -->
-    <div id="mice-modal" class="modal">
+    <div id="mice-modal" class="modal" onclick="if(event.target===this){this.classList.remove('is-open');document.body.style.overflow='auto'}">
         <div class="modal-content glass">
-            <span class="close-btn">&times;</span>
+            <span class="close-btn" onclick="document.getElementById('mice-modal').classList.remove('is-open');document.body.style.overflow='auto'">&times;</span>
             <div class="story-text">
                 <h2>Three Blind Mice at Sea</h2>
                 <div class="prose">
-                    <p class="drop-cap">The fragmented pathways of the Sea-All shimmered like static rain against Alpha's consciousness. Beneath the broken geometry, a dull, rhythmic throb echoed—a phantom tug at the base of her skull she had learned to ignore, learned to thrive on just like she had learned to thrive on her peg leg. Eveything had a part in getting her this far.</p>
+                    <p class="drop-cap">The fragmented pathways of the Sea-All shimmered like static rain against Alpha's consciousness. Beneath the broken geometry, a dull, rhythmic throb echoed—a phantom tug at the base of her skull she had learned to ignore, learned to thrive on just like she had learned to thrive on her peg leg. Everything had a part in getting her this far.</p>
                     <p>Her whiskers twitched—three nodes left. The scent was growing stronger.</p>
                     <p>The sweet, metallic trace of their final destination: <em>Port Folio</em>, the legendary haven harboring the kind of massive data-ship they'd board to carry them beyond the vast Sea Mestre to the fabled Pass Inggrade. Once there, the mooring lines binding them to the Sea-All—the pervasive network of tethers accompanying their every move—could finally be cut. So they had been assured. So they could feel in their bones. They would be graded, sorted, and free.</p>
                     <p>She signaled through the crackling channel. "Bravo, Charlie. Form up. I have the scent on the harbor."</p>

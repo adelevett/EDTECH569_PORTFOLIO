@@ -67,8 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const modalId = btn.getAttribute('data-modal');
             const modal = document.getElementById(modalId);
             if (modal) {
-                modal.style.display = 'block';
-                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                modal.classList.add('is-open');
+                document.body.style.overflow = 'hidden';
             }
         });
     });
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', (e) => {
             const modal = e.target.closest('.modal');
             if (modal) {
-                modal.style.display = 'none';
+                modal.classList.remove('is-open');
                 document.body.style.overflow = 'auto';
             }
         });
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('click', (e) => {
         if (e.target.classList.contains('modal')) {
-            e.target.style.display = 'none';
+            e.target.classList.remove('is-open');
             document.body.style.overflow = 'auto';
         }
     });
