@@ -430,3 +430,43 @@ footer {
     .section-container { padding: 4rem 5%; }
     .glass { padding: 2rem; }
 }
+
+/* Polished Story Formatting */
+.prose .drop-cap::first-letter {
+    font-size: 3.5rem;
+    font-weight: bold;
+    float: left;
+    margin-top: 0.15rem;
+    margin-right: 0.5rem;
+    margin-bottom: -0.5rem;
+    line-height: 1;
+    color: #38bdf8;
+}
+
+.prose p {
+    margin-bottom: 1.5rem; /* Reflecting the line break visually */
+    line-height: 1.7;
+}
+
+.prose .dialogue {
+    padding-left: 2rem;
+    font-style: italic;
+    color: #e2e8f0;
+    margin-bottom: 1.5rem;
+}
+
+.prose blockquote.rott-quote {
+    border-left: 4px solid #ef4444;
+    padding: 1rem 1.5rem;
+    margin: 2rem 0;
+    background: rgba(239, 68, 68, 0.05);
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.prose .thematic-break {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 3rem auto;
+    width: 50%;
+}

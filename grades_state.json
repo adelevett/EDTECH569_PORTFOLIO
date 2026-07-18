@@ -38,5 +38,13 @@
     "work_effort": "Slight effort",
     "satisfaction": "Elated",
     "time_spent": "4 hours: 0 min"
+  },
+  "Three Blind Mice at Sea": {
+    "product_type": "Product F: Write short-form fiction or poetry",
+    "genre": "2: Literature (short stories)",
+    "level": "Level 1",
+    "work_effort": "Slight effort",
+    "satisfaction": "Very Pleased",
+    "time_spent": "2 hours: 0 min"
   }
 }
