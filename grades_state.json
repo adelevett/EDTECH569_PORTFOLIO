@@ -1,5 +1,5 @@
 {
-  "Simulated Livestream Comments Generator": {
+  "Simulated Livestream Lectures": {
     "product_type": "Product H: Develop a Game or Gamified Scenario",
     "genre": "5: Academic works (articles, chapters)",
     "level": "Level 1",
@@ -15,7 +15,7 @@
     "satisfaction": "Elated",
     "time_spent": "8 hours: 0 min"
   },
-  "Mapping Utopian Theory to Practice": {
+  "Mapping Utopian Practice Beyond Theory": {
     "product_type": "Product E2: Develop an interactive graphic",
     "genre": "5: Academic works (articles, chapters)",
     "level": "Level 3",
@@ -39,12 +39,28 @@
     "satisfaction": "Elated",
     "time_spent": "4 hours: 0 min"
   },
-  "Three Blind Mice at Sea": {
+  "Three Blind Mice See-All": {
     "product_type": "Product F: Write short-form fiction or poetry",
     "genre": "2: Literature (short stories)",
     "level": "Level 1",
     "work_effort": "Slight effort",
     "satisfaction": "Very Pleased",
     "time_spent": "2 hours: 0 min"
+  },
+  "Global Jukebox Selection": {
+    "product_type": "Product I: Create a playlist or guide",
+    "genre": "8: Music or Sound-Scapes",
+    "level": "Level 2",
+    "work_effort": "Moderate effort",
+    "satisfaction": "Elated",
+    "time_spent": "6 hours: 0 min"
+  },
+  "Eye for AI": {
+    "product_type": "Product B: Compose an academic essay",
+    "genre": "5: Academic works (articles, chapters)",
+    "level": "Level 2",
+    "work_effort": "Moderate effort",
+    "satisfaction": "Satisfied",
+    "time_spent": "8 hours: 0 min"
   }
 }

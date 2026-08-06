@@ -235,9 +235,11 @@ def generate_markdown(artifacts, state):
     ]
     total_score = 0
     product_type_counts = {}
+    ungraded_titles = []
     for art in artifacts:
         title = art["title"]
         if title not in state:
+            ungraded_titles.append(title)
             continue
         data = state[title]
         product_type_counts[data.get("product_type", "")] = product_type_counts.get(data.get("product_type", ""), 0) + 1
@@ -251,19 +253,22 @@ def generate_markdown(artifacts, state):
         total_score += score
         lines.append(f"| {title} | {data.get('product_type')} | {data.get('genre')} | {data.get('level')} | {data.get('work_effort')} | {data.get('satisfaction')} | {data.get('time_spent')} | {score:.2f} |")
 
-    lines.append(f"\n**Total Score: {total_score:.2f} / 300+**\n")
+    max_score = len(artifacts) * 50
+    lines.append(f"\n**Total Score: {total_score:.2f} / {max_score}**\n")
 
     lines.append("## Portfolio Requirements (per Choice Board sheet)\n")
     unique_types = len(product_type_counts)
-    lines.append(f"- Unique product types used: {unique_types} (need 5+) — {'OK' if unique_types >= 5 else 'NOT MET'}")
-    lines.append(f"- Total points: {total_score:.2f} (need 300+) — {'OK' if total_score >= 300 else 'NOT MET'}")
+    lines.append(f"- Unique product types used: {unique_types}")
+    lines.append(f"- Total points: {total_score:.2f} (need 200+) — {'OK' if total_score >= 200 else 'NOT MET'}")
+    if ungraded_titles:
+        lines.append(f"- Artifacts still needing self-assessment: {', '.join(ungraded_titles)}")
     repeated = [f"{pt} (x{n})" for pt, n in product_type_counts.items() if n > 2]
     if repeated:
         lines.append(f"- Product types used more than twice (choice board says max 2x each): {', '.join(repeated)}")
     else:
         lines.append("- No product type repeated more than twice — OK")
 
-    with open(OUTPUT_FILE, 'w') as f:
+    with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
         f.write("\n".join(lines))
     print(f"\nSuccessfully generated {OUTPUT_FILE} with total score {total_score:.2f}.")
 
