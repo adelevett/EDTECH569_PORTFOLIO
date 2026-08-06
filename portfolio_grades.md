@@ -15,6 +15,6 @@
 
 ## Portfolio Requirements (per Choice Board sheet)
 
-- Unique product types used: 6
+- Unique product types used: 8
 - Total points: 377.64 (need 200+) — OK
 - No product type repeated more than twice — OK
