@@ -46848,28 +46848,46 @@ float decodeDepth(vec3 c){ return (floor(c.r * 255.0 + 0.5) * 256.0 + floor(c.g 
       fn();
       g.restore();
     };
-    put(0.205, 0.672, -0.05, 1, 0.56, () => {
+    put(0.158, 0.672, -0.05, 1, 0.56, () => {
       g.globalCompositeOperation = "multiply";
       g.fillStyle = "rgba(250,226,40,0.55)";
       g.beginPath();
-      g.moveTo(-0.075 * W2, -0.012 * H2);
-      g.lineTo(0.078 * W2, -0.018 * H2);
-      g.lineTo(0.08 * W2, 0.034 * H2);
-      g.lineTo(-0.073 * W2, 0.038 * H2);
+      g.moveTo(-0.05 * W2, -0.012 * H2);
+      g.lineTo(0.052 * W2, -0.016 * H2);
+      g.lineTo(0.054 * W2, 0.03 * H2);
+      g.lineTo(-0.048 * W2, 0.034 * H2);
       g.fill();
       g.globalCompositeOperation = "source-over";
       g.textAlign = "center";
-      pencil("PORTFOLIO", 0, 0.028 * H2, `700 ${0.052 * H2}px Caveat`, 0.85);
+      pencil("PORTFOLIO", 0, 0.025 * H2, `700 ${0.04 * H2}px Caveat`, 0.9);
     });
-    put(0.115, 0.838, -0.12, 1.12, 0.7, () => {
+    put(0.118, 0.822, -0.12, 1, 0.66, () => {
+      const pw = 0.25 * W2, ph = 0.19 * H2;
+      g.fillStyle = "rgba(0,0,0,0.28)";
+      g.fillRect(4e-3 * W2, -0.035 * H2 + 0.012 * H2, pw, ph);
+      g.fillStyle = "rgb(226,223,215)";
+      g.fillRect(0, -0.035 * H2, pw, ph);
+      g.strokeStyle = "rgba(40,40,44,0.75)";
+      g.lineWidth = 2.5;
+      g.strokeRect(0, -0.035 * H2, pw, ph);
+      g.strokeStyle = "rgba(60,60,64,0.18)";
+      g.lineWidth = 1.2;
+      for (let k = 0; k < 60; k++) {
+        const x = k / 60 * pw;
+        g.beginPath();
+        g.moveTo(x, -0.035 * H2);
+        g.lineTo(x + 0.02 * W2, -0.035 * H2 + ph);
+        g.stroke();
+      }
       g.textAlign = "left";
-      pencil("FALL SEMESTER  -  PROGRESS REPORT", 0, 0, `400 ${0.026 * H2}px "Special Elite"`, 0.8);
-      pencil("GRADE POINT AVERAGE ........", 0, 0.05 * H2, `400 ${0.026 * H2}px "Special Elite"`, 0.75);
-      pencil("PASSING GRADE ?", 0, 0.1 * H2, `400 ${0.026 * H2}px "Special Elite"`, 0.75);
+      const f = `400 ${0.0185 * H2}px "Special Elite"`;
+      pencil("FALL SEMESTER  -  PROGRESS REPORT", 0.014 * W2, 8e-3 * H2, f, 0.85);
+      pencil("GRADE POINT AVERAGE ........", 0.014 * W2, 0.05 * H2, f, 0.8);
+      pencil("PASSING GRADE ?", 0.014 * W2, 0.092 * H2, f, 0.8);
       g.strokeStyle = "rgba(35,35,38,0.7)";
       g.lineWidth = 3;
       g.beginPath();
-      g.ellipse(0.105 * W2, 0.092 * H2, 0.12 * W2, 0.028 * H2, 0, 0, Math.PI * 2);
+      g.ellipse(0.075 * W2, 0.084 * H2, 0.075 * W2, 0.022 * H2, 0, 0, Math.PI * 2);
       g.stroke();
     });
     const t = new CanvasTexture(c);

@@ -7,7 +7,7 @@ offline render show the same frames.
 | Deliverable | Path |
 |---|---|
 | Interactive trailer (Play button, scrub bar, ←/→ frame step, Space) | `index.html` (+ `assets/`, `audio/`) |
-| Rendered film, 1920×1080, 30 fps, H.264 + AAC | `trailer.mp4` |
+| Rendered film: 1920×1080, 30 fps, 870 frames, 29.000 s, H.264 ~22 Mb/s + AAC 320k, 80.8 MB | `trailer.mp4` |
 | Bounced mix (the page plays this same file) | `audio/trailer_mix.wav` |
 | Script, beat sheet and design notes | `build/SCRIPT.md` |
 
@@ -43,6 +43,14 @@ Everything below runs from `build/`. It needs Node 22, Python 3.11 and ffmpeg. T
    at least 12 dB under every line, and normalises to a −1.5 dBTP true peak.
 5. `node render.mjs --workers=3` renders frames in headless Chromium: 3–6 jittered sub-frames per frame, clamped per cut.
    `./mux.sh` encodes `trailer.mp4`.
+
+## Measured (final QA)
+- Runtime: 29.000 s (870 frames at 30 fps, title card included). The audio track is 29.000 s and sample-aligned with the picture.
+- Loudness: music sits at least 13.0 dB under speech in all four dialogue windows. Master sample peak −1.63 dBFS, true peak
+  −1.52 dBTP, measured on the audio decoded from the MP4.
+- Sync: every hit lands 0–56 ms after its picture cut (impact, cuts, PLUCK, PLUNK, eye snap).
+- Clean: no console errors across the 870-frame render or the `file://` playback test.
+- Spend: $2.3615 of the $10 cap. The build ledger and OpenRouter's key-usage endpoint agree.
 
 ## Credits and licences
 - Images: OpenAI GPT Image 2.5 Sunburst, via OpenRouter, from the three reference paintings in this repo.

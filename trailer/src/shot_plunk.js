@@ -21,20 +21,27 @@ function deskColor(img) {
     g.fillStyle = `rgba(35,35,38,${alpha * 0.35})`; g.fillText(txt, x + 1.5, y + 1);
   };
   const put = (x, y, rot, sx, sy, fn) => { g.save(); g.translate(x * W, y * H); g.rotate(rot); g.scale(sx, sy); fn(); g.restore(); };
-  // folder cover: handwritten label + the only stroke of colour in the physical world
-  put(0.205, 0.672, -0.05, 1.0, 0.56, () => {
+  // folder cover: handwritten label + the only stroke of colour in the physical world (left of the clasp)
+  put(0.158, 0.672, -0.05, 1.0, 0.56, () => {
     g.globalCompositeOperation = 'multiply';
-    g.fillStyle = 'rgba(250,226,40,0.55)'; g.beginPath(); g.moveTo(-0.075 * W, -0.012 * H); g.lineTo(0.078 * W, -0.018 * H); g.lineTo(0.08 * W, 0.034 * H); g.lineTo(-0.073 * W, 0.038 * H); g.fill();
+    g.fillStyle = 'rgba(250,226,40,0.55)'; g.beginPath(); g.moveTo(-0.05 * W, -0.012 * H); g.lineTo(0.052 * W, -0.016 * H); g.lineTo(0.054 * W, 0.03 * H); g.lineTo(-0.048 * W, 0.034 * H); g.fill();
     g.globalCompositeOperation = 'source-over'; g.textAlign = 'center';
-    pencil('PORTFOLIO', 0, 0.028 * H, `700 ${0.052 * H}px Caveat`, 0.85);
+    pencil('PORTFOLIO', 0, 0.025 * H, `700 ${0.04 * H}px Caveat`, 0.9);
   });
-  // report sheet near the lens
-  put(0.115, 0.838, -0.12, 1.12, 0.7, () => {
+  // report: its own sheet of paper lying on the loose papers at lower left
+  put(0.118, 0.822, -0.12, 1.0, 0.66, () => {
+    const pw = 0.25 * W, ph = 0.19 * H;
+    g.fillStyle = 'rgba(0,0,0,0.28)'; g.fillRect(0.004 * W, -0.035 * H + 0.012 * H, pw, ph);           // contact shadow
+    g.fillStyle = 'rgb(226,223,215)'; g.fillRect(0, -0.035 * H, pw, ph);                               // sheet
+    g.strokeStyle = 'rgba(40,40,44,0.75)'; g.lineWidth = 2.5; g.strokeRect(0, -0.035 * H, pw, ph);     // pencil edge
+    g.strokeStyle = 'rgba(60,60,64,0.18)'; g.lineWidth = 1.2;                                           // light hatching
+    for (let k = 0; k < 60; k++) { const x = (k / 60) * pw; g.beginPath(); g.moveTo(x, -0.035 * H); g.lineTo(x + 0.02 * W, -0.035 * H + ph); g.stroke(); }
     g.textAlign = 'left';
-    pencil('FALL SEMESTER  -  PROGRESS REPORT', 0, 0, `400 ${0.026 * H}px "Special Elite"`, 0.8);
-    pencil('GRADE POINT AVERAGE ........', 0, 0.05 * H, `400 ${0.026 * H}px "Special Elite"`, 0.75);
-    pencil('PASSING GRADE ?', 0, 0.1 * H, `400 ${0.026 * H}px "Special Elite"`, 0.75);
-    g.strokeStyle = 'rgba(35,35,38,0.7)'; g.lineWidth = 3; g.beginPath(); g.ellipse(0.105 * W, 0.092 * H, 0.12 * W, 0.028 * H, 0, 0, Math.PI * 2); g.stroke();
+    const f = `400 ${0.0185 * H}px "Special Elite"`;
+    pencil('FALL SEMESTER  -  PROGRESS REPORT', 0.014 * W, 0.008 * H, f, 0.85);
+    pencil('GRADE POINT AVERAGE ........', 0.014 * W, 0.05 * H, f, 0.8);
+    pencil('PASSING GRADE ?', 0.014 * W, 0.092 * H, f, 0.8);
+    g.strokeStyle = 'rgba(35,35,38,0.7)'; g.lineWidth = 3; g.beginPath(); g.ellipse(0.075 * W, 0.084 * H, 0.075 * W, 0.022 * H, 0, 0, Math.PI * 2); g.stroke();
   });
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8;
   t.minFilter = THREE.LinearMipmapLinearFilter; t.generateMipmaps = true;
