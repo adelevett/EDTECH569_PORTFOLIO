@@ -1,0 +1,46 @@
+[
+ {
+  "id": "alpha_setsail",
+  "window": [
+   "2.72",
+   "5.53"
+  ],
+  "speechRMS": "-13.6",
+  "musicBefore": "-20.1",
+  "musicAfter": "-26.6",
+  "marginDb": "13.0"
+ },
+ {
+  "id": "bravo_free",
+  "window": [
+   "7.61",
+   "9.49"
+  ],
+  "speechRMS": "-12.0",
+  "musicBefore": "-16.4",
+  "musicAfter": "-25.0",
+  "marginDb": "13.0"
+ },
+ {
+  "id": "rott",
+  "window": [
+   "10.22",
+   "15.18"
+  ],
+  "speechRMS": "-15.5",
+  "musicBefore": "-11.6",
+  "musicAfter": "-28.5",
+  "marginDb": "13.0"
+ },
+ {
+  "id": "alpha_scatter",
+  "window": [
+   "17.29",
+   "18.64"
+  ],
+  "speechRMS": "-6.9",
+  "musicBefore": "-10.8",
+  "musicAfter": "-19.9",
+  "marginDb": "13.0"
+ }
+]

@@ -1,0 +1,12 @@
+# build intermediates (regenerable; raw generations are large)
+build/node_modules/
+build/gen/
+build/keyed/
+build/refs/
+build/music/
+build/vo/*.pcm
+build/sfx/
+build/__pycache__/
+build/audio_bundle.js
+# assets/img is recreated from assets/pack by `node build/unpack.mjs`
+assets/img/

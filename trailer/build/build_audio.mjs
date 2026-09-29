@@ -1,0 +1,20 @@
+// Render the soundtrack in headless Chromium (OfflineAudioContext) and write trailer/audio/trailer_mix.wav
+import * as esbuild from 'esbuild';
+import { chromium } from '/opt/node22/lib/node_modules/playwright/index.mjs';
+import fs from 'fs'; import path from 'path'; import { serve } from './serve.mjs';
+const here = path.dirname(new URL(import.meta.url).pathname), root = path.resolve(here, '..');
+await esbuild.build({ entryPoints: [path.join(root, 'src/audio/build_entry.js')], bundle: true, format: 'iife', outfile: path.join(here, 'audio_bundle.js'), logLevel: 'warning' });
+const srv = await serve(root, 8911);
+const browser = await chromium.launch({ args: ['--no-sandbox', '--autoplay-policy=no-user-gesture-required'] });
+const page = await browser.newPage();
+page.on('console', m => { if (m.type() === 'error') console.log('[console]', m.text()); });
+page.on('pageerror', e => console.log('[pageerror]', e.message));
+await page.goto('http://localhost:8911/build/audio_build.html');
+const res = await page.evaluate(() => window.buildAudio());
+fs.writeFileSync(path.join(root, 'audio/trailer_mix.wav'), Buffer.from(res.b64, 'base64'));
+const meta = JSON.parse(fs.readFileSync(path.join(root, 'assets/img/meta.json')));
+meta.rottEnv = res.rottEnv; fs.writeFileSync(path.join(root, 'assets/img/meta.json'), JSON.stringify(meta, null, 1));
+console.log('rendered in', (res.ms / 1000).toFixed(1), 's; peak before norm', res.peakBeforeNorm.toFixed(2), 'dBFS; norm gain', res.normGainDb.toFixed(2), 'dB');
+console.table(res.report);
+fs.writeFileSync(path.join(here, 'audio_report.json'), JSON.stringify(res.report, null, 1));
+await browser.close(); srv.close();

@@ -1,0 +1,22 @@
+import { chromium } from '/opt/node22/lib/node_modules/playwright/index.mjs';
+import path from 'path'; import fs from 'fs';
+const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
+const browser = await chromium.launch({ args: ['--no-sandbox', '--enable-gpu', '--use-angle=vulkan', '--enable-unsafe-swiftshader', '--autoplay-policy=no-user-gesture-required'] });
+const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
+const errs = []; page.on('console', m => { if (['error', 'warning'].includes(m.type()) && !m.text().includes('GPU stall')) errs.push(m.type() + ': ' + m.text().slice(0, 200)); });
+page.on('pageerror', e => errs.push('pageerror: ' + e.message));
+await page.goto('file://' + path.join(root, 'index.html'));
+await page.waitForFunction(() => !document.getElementById('play').disabled || document.getElementById('load').textContent.startsWith('ERROR'), null, { timeout: 180000 });
+console.log('play button:', await page.evaluate(() => document.getElementById('play').textContent), '| load:', await page.evaluate(() => document.getElementById('load').textContent));
+await page.click('#play');
+await page.waitForTimeout(3500);
+const st = await page.evaluate(() => ({ t: document.getElementById('aud').currentTime, paused: document.getElementById('aud').paused, dur: document.getElementById('aud').duration, err: document.getElementById('aud').error && document.getElementById('aud').error.code }));
+console.log('audio state after play:', JSON.stringify(st));
+await page.screenshot({ path: '/tmp/claude-0/-home-user-EDTECH569-PORTFOLIO/95c852e6-6b04-5eaf-86f9-c2721e7a47a1/scratchpad/filetest.png' });
+// scrub test
+await page.evaluate(() => { const s = document.getElementById('scrub'); s.value = 24.0; s.dispatchEvent(new Event('input')); });
+await page.waitForTimeout(800);
+await page.screenshot({ path: '/tmp/claude-0/-home-user-EDTECH569-PORTFOLIO/95c852e6-6b04-5eaf-86f9-c2721e7a47a1/scratchpad/filetest2.png' });
+console.log('after scrub t =', await page.evaluate(() => document.getElementById('aud').currentTime.toFixed(2)), await page.evaluate(() => document.getElementById('time').textContent));
+console.log(errs.length ? 'CONSOLE:\n' + errs.join('\n') : 'no console errors');
+await browser.close();
