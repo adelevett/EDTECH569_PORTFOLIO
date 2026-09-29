@@ -7,8 +7,8 @@
   ],
   "speechRMS": "-13.6",
   "musicBefore": "-20.1",
-  "musicAfter": "-26.6",
-  "marginDb": "13.0"
+  "musicAfter": "-26.7",
+  "marginDb": "13.1"
  },
  {
   "id": "bravo_free",
@@ -18,8 +18,8 @@
   ],
   "speechRMS": "-12.0",
   "musicBefore": "-16.4",
-  "musicAfter": "-25.0",
-  "marginDb": "13.0"
+  "musicAfter": "-25.4",
+  "marginDb": "13.4"
  },
  {
   "id": "rott",
@@ -27,10 +27,10 @@
    "10.22",
    "15.18"
   ],
-  "speechRMS": "-15.5",
-  "musicBefore": "-11.6",
-  "musicAfter": "-28.5",
-  "marginDb": "13.0"
+  "speechRMS": "-17.5",
+  "musicBefore": "-12.6",
+  "musicAfter": "-30.8",
+  "marginDb": "13.3"
  },
  {
   "id": "alpha_scatter",
@@ -40,7 +40,7 @@
   ],
   "speechRMS": "-6.9",
   "musicBefore": "-10.8",
-  "musicAfter": "-19.9",
-  "marginDb": "13.0"
+  "musicAfter": "-20.4",
+  "marginDb": "13.6"
  }
 ]

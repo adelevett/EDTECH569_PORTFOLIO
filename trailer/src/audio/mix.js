@@ -134,10 +134,10 @@ function processRott(x, sr) {
   let hold = 0, hc = 0;
   for (let i = 0; i < n; i++) {
     const t = i / sr;
-    let v = x[i] * 0.55 + low[i] * 0.75 + sub[i] * 0.28 + hi[i] * 0.06;
+    let v = x[i] * 0.9 + low[i] * 0.42 + sub[i] * 0.1 + hi[i] * 0.06;
     let crush = 0; for (const [a, b] of crushAt) if (t > a && t < b) crush = 1;
     if (crush) { if (hc-- <= 0) { hold = Math.round(v * 12) / 12; hc = 6 + Math.floor(r() * 10); } v = hold * 0.9 + v * 0.2; }
-    y[i] = Math.tanh(v * 1.6) * 0.8;
+    y[i] = Math.tanh(v * 1.2) * 0.85;
   }
   // stutter on "a-a-anomalies"
   const st = Math.floor(3.02 * sr), g = Math.floor(0.085 * sr);
@@ -268,7 +268,8 @@ export const CC0_NAMES = ['impactGlass_heavy_000', 'impactGlass_heavy_001', 'imp
   'impactWood_heavy_000', 'impactWood_heavy_001', 'impactPlank_medium_000', 'impactPlank_medium_001', 'impactMetal_heavy_000', 'impactMetal_heavy_001', 'impactMetal_heavy_002',
   'impactMetal_medium_000', 'impactMetal_medium_001', 'impactPunch_heavy_000', 'impactPunch_heavy_001', 'footstep_concrete_000', 'footstep_concrete_001', 'footstep_concrete_002',
   'footstep_concrete_003', 'footstep_concrete_004', 'impactPlate_light_000', 'impactSoft_heavy_000', 'computerNoise_000', 'lowFrequency_explosion_000', 'lowFrequency_explosion_001',
-  'explosionCrunch_000', 'slime_000', 'forceField_000'];
+  'explosionCrunch_000', 'slime_000', 'forceField_000', 'water_splash_03', 'water_splash_05', 'water_splash_11',
+  'bfh1_glass_breaking_06', 'bfh1_glass_breaking_04', 'bfh1_glass_breaking_01', 'bfh1_glass_falling_02', 'bfh1_hit_01', 'bfh1_wood_hit_03'];
 
 // ------------------------------------------------------------------------------------ the score bed
 function scoreBed(ctx, score, bus) {
@@ -315,7 +316,10 @@ export function buildGraph(ctx, A, sel, duck) {
   mono.connect(bus.room); mono.connect(roomIR);
 
   // music ducking automation (computed from measured stems)
-  const musicIn = ctx.createGain(); musicIn.connect(bus.music);
+  const musicIn = ctx.createGain();
+  const dip = ctx.createBiquadFilter(); dip.type = 'peaking'; dip.frequency.value = 2300; dip.Q.value = 0.8; dip.gain.value = 0;
+  musicIn.connect(dip).connect(bus.music);
+  if (duck && duck.dip) { const dg = Float32Array.from(duck.dip, v => -7 * (1 - v)); dip.gain.setValueCurveAtTime(dg, 0, DUR); }
   if (duck) { bus.music.gain.setValueCurveAtTime(duck.music, 0, DUR); bus.sfx.gain.setValueCurveAtTime(duck.sfx, 0, DUR); }
   const musicHall = ctx.createGain(); musicHall.connect(musicIn); musicHall.connect(hallMus);
 
@@ -325,15 +329,14 @@ export function buildGraph(ctx, A, sel, duck) {
   const motif = [[1.375, 311.13], [1.855, 293.66], [2.335, 261.63]];
   for (const [t, f] of motif) { bell(ctx, t, f * 2, musicHall, { gain: 0.16, dur: 3.2, pan: -0.25 }); bell(ctx, t + 0.012, f * 4, musicHall, { gain: 0.05, dur: 2.2, pan: 0.3 }); }
   // braams: Rott, maelstrom
-  braam(ctx, T.rott, musicHall, { f: 43.65, dur: 3.2, gain: 0.3 });
-  braam(ctx, T.rott + 2.36, musicHall, { f: 41.2, dur: 2.4, gain: 0.26 });
+  braam(ctx, T.rott, musicHall, { f: 43.65, dur: 3.2, gain: 0.22 });
+  braam(ctx, T.rott + 2.36, musicHall, { f: 41.2, dur: 2.4, gain: 0.17 });
   braam(ctx, T.maelStart, musicHall, { f: 38.9, dur: 1.2, gain: 0.3 });
   // music box in the globe: C major "Three Blind Mice", dry, tiny, slowing and sagging as it tips
   const mbNotes = [
     [T.title + 0.55, 'E'], [T.title + 0.95, 'D'], [T.title + 1.35, 'C'],
     [T.title + 2.15, 'E'], [T.title + 2.55, 'D'], [T.title + 2.95, 'C'],
     [T.plunk + 1.75, 'G'], [T.plunk + 2.1, 'F'], [T.plunk + 2.45, 'F'], [T.plunk + 2.86, 'E'],
-    [T.plunk + 3.4, 'G', 60],
   ];
   const NOTE = { C: 1046.5, D: 1174.66, E: 1318.51, F: 1396.91, G: 1567.98 };
   const mbBus = ctx.createGain(); mbBus.gain.value = 1; const mbHP = ctx.createBiquadFilter(); mbHP.type = 'highpass'; mbHP.frequency.value = 350;
@@ -365,10 +368,11 @@ export function buildGraph(ctx, A, sel, duck) {
       for (let k = 0; k < 22; k++) noiseHit(ctx, v.at + v.sp[0] + r() * (v.sp[1] - v.sp[0]), voIn, nb, { f: 2200 + r() * 2500, q: 2, a: 0.001, h: 0.003, r: 0.014, gain: 0.07 + r() * 0.08, pan: r() * 1.2 - 0.6, offset: r() * 5 });
       for (const [tt, gg] of [[v.at + v.sp[0] - 0.09, 0.14], [v.at + v.sp[1] + 0.03, 0.2]]) noiseHit(ctx, tt, voIn, nb, { f: 2600, q: 0.9, a: 0.003, h: 0.05, r: 0.06, gain: gg, offset: tt });
     } else if (v.fx === 'rott') {
-      const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 45;
-      const lo = ctx.createBiquadFilter(); lo.type = 'lowshelf'; lo.frequency.value = 180; lo.gain.value = 4;
-      chain.connect(hp).connect(lo).connect(voIn);
-      const send = ctx.createGain(); send.gain.value = 0.42; lo.connect(send).connect(hallVO);
+      const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 90;
+      const lo = ctx.createBiquadFilter(); lo.type = 'peaking'; lo.frequency.value = 2800; lo.Q.value = 0.9; lo.gain.value = 6;
+      const mud = ctx.createBiquadFilter(); mud.type = 'peaking'; mud.frequency.value = 280; mud.Q.value = 1.0; mud.gain.value = -4;
+      chain.connect(hp).connect(mud).connect(lo).connect(voIn);
+      const send = ctx.createGain(); send.gain.value = 0.3; lo.connect(send).connect(hallVO);
       // splashing, number-crunching tail under her words
       sweep(ctx, v.at + 3.9, 1.6, bus.sfx, nbP, { f0: 900, f1: 260, q: 0.7, gain: 0.08, curve: 'lin', pan0: -0.4, pan1: 0.5 });
     }
@@ -394,17 +398,17 @@ export function buildGraph(ctx, A, sel, duck) {
   smp(ctx, 'forceField_000', 0.15, space, { rate: 0.8, gain: 0.25, hp: 400 });
   { const o = ctx.createOscillator(); o.frequency.setValueAtTime(38, 0.05); o.frequency.exponentialRampToValueAtTime(55, 1.3); const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, 0.05); g.gain.linearRampToValueAtTime(0.18, 0.9); g.gain.exponentialRampToValueAtTime(0.0001, 2.4); o.connect(g).connect(sfx); o.start(0.05); o.stop(2.5); }
   // shimmer bed of the Sea-All: high glassy partials + crackle
-  { const sh = ctx.createGain(); sh.gain.setValueAtTime(0.0001, 0.3); sh.gain.linearRampToValueAtTime(0.05, 1.6); sh.gain.setValueAtTime(0.05, T.rott - 0.2); sh.gain.linearRampToValueAtTime(0.0001, T.rott);
+  { const sh = ctx.createGain(); sh.gain.setValueAtTime(0.0001, 0.3); sh.gain.linearRampToValueAtTime(0.028, 1.6); sh.gain.setValueAtTime(0.028, T.rott - 0.2); sh.gain.linearRampToValueAtTime(0.0001, T.rott);
     sh.connect(space); sh.connect(sfx);
     for (const [f, p] of [[2093, -0.6], [2637.02, 0.5], [3135.96, -0.2], [3951, 0.7], [4186, -0.8]]) { const o = ctx.createOscillator(); o.frequency.value = f; const lfo = ctx.createOscillator(); lfo.frequency.value = 0.3 + r() * 0.7; const lg = ctx.createGain(); lg.gain.value = 0.5; const g = ctx.createGain(); g.gain.value = 0.5; lfo.connect(lg).connect(g.gain); const pn = ctx.createStereoPanner(); pn.pan.value = p; o.connect(g).connect(pn).connect(sh); o.start(0.3); lfo.start(0.3); o.stop(T.rott + 0.1); lfo.stop(T.rott + 0.1); }
-    for (let k = 0; k < 90; k++) noiseHit(ctx, 0.2 + r() * (T.rott - 0.4), sfx, nb, { f: 3000 + r() * 5000, q: 4, a: 0.001, h: 0.002, r: 0.02, gain: 0.02 + r() * 0.03, pan: r() * 2 - 1, offset: r() * 5 });
+    for (let k = 0; k < 60; k++) noiseHit(ctx, 0.2 + r() * (T.rott - 0.4), sfx, nb, { f: 3000 + r() * 5000, q: 4, a: 0.001, h: 0.002, r: 0.02, gain: 0.014 + r() * 0.02, pan: r() * 2 - 1, offset: r() * 5 });
   }
   // lighthouse beam sweeps
   sweep(ctx, 1.4, 2.8, both, nbP, { f0: 400, f1: 2400, q: 2.5, gain: 0.08, curve: 'lin', pan0: 0.8, pan1: -0.3, attack: 1.6 });
   // rain + wind in the Sea-All (wide, reverberant)
   { const rn = ctx.createBufferSource(); rn.buffer = A.noiseSt; rn.loop = true; const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 900; const lp = ctx.createBiquadFilter(); lp.frequency.value = 9000;
-    const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, 0.6); g.gain.linearRampToValueAtTime(0.035, 2.0); g.gain.setValueAtTime(0.035, T.docks - 0.2); g.gain.linearRampToValueAtTime(0.11, T.docks + 0.1);
-    g.gain.setValueAtTime(0.11, T.rott); g.gain.linearRampToValueAtTime(0.06, T.rott + 1.5); g.gain.setValueAtTime(0.06, T.maelStart); g.gain.linearRampToValueAtTime(0.0001, T.maelStart + 0.4);
+    const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, 0.6); g.gain.linearRampToValueAtTime(0.03, 2.0); g.gain.setValueAtTime(0.03, T.docks - 0.2); g.gain.linearRampToValueAtTime(0.08, T.docks + 0.1);
+    g.gain.setValueAtTime(0.08, T.rott); g.gain.linearRampToValueAtTime(0.06, T.rott + 1.5); g.gain.setValueAtTime(0.06, T.maelStart); g.gain.linearRampToValueAtTime(0.0001, T.maelStart + 0.4);
     rn.connect(hp).connect(lp).connect(g); g.connect(sfx); g.connect(space); rn.start(0.6); rn.stop(T.maelStart + 0.5);
     for (let k = 0; k < 160; k++) { const t = T.docks + r() * (T.rott - T.docks + 2); noiseHit(ctx, t, both, nb, { f: 1800 + r() * 3000, q: 2, a: 0.001, h: 0.002, r: 0.03, gain: 0.02 + r() * 0.035, pan: r() * 2 - 1, offset: r() * 5 }); }
   }
@@ -434,7 +438,7 @@ export function buildGraph(ctx, A, sel, duck) {
     const ws = ctx.createWaveShaper(); const cv = new Float32Array(64); for (let i = 0; i < 64; i++) cv[i] = Math.round((i / 31.5 - 1) * 3) / 3; ws.curve = cv;
     const g = ctx.createGain(); adsr(g.gain, t, 0.002, 0.08 + r() * 0.12, 0.05, 0.12); s.connect(bp).connect(ws).connect(g).connect(both); s.start(t, r() * 3); s.stop(t + 0.35);
   }
-  { const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, T.rott + 0.3); g.gain.linearRampToValueAtTime(0.16, T.rott + 2.0); g.gain.setValueAtTime(0.16, T.maelStart); g.gain.linearRampToValueAtTime(0.0001, T.flashOut);
+  { const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, T.rott + 0.3); g.gain.linearRampToValueAtTime(0.06, T.rott + 2.0); g.gain.setValueAtTime(0.06, T.maelStart - 0.3); g.gain.linearRampToValueAtTime(0.16, T.maelStart + 0.2); g.gain.setValueAtTime(0.16, T.flashOut - 0.05); g.gain.linearRampToValueAtTime(0.0001, T.flashOut);
     const lp = ctx.createBiquadFilter(); lp.frequency.value = 180; g.connect(lp).connect(sfx);
     for (const [f, dt] of [[36.7, -8], [36.7, 7], [55, 0], [73.4, -12]]) { const o = ctx.createOscillator(); o.type = 'sawtooth'; o.frequency.value = f; o.detune.value = dt; o.connect(g); o.start(T.rott + 0.3); o.stop(T.flashOut + 0.05); } }
   // maelstrom: vortex roar, hits on the cuts, leap whoosh, shredding, riser -> PLUCK
@@ -471,6 +475,14 @@ export function buildGraph(ctx, A, sel, duck) {
   // ================= TITLE
   kick(ctx, T.title + 0.03, sfx, { f0: 55, f1: 24, dur: 2.2, gain: 0.85 });
   smp(ctx, 'lowFrequency_explosion_001', T.title + 0.03, space, { rate: 0.7, gain: 0.8 });
+  { const o = ctx.createOscillator(); o.frequency.setValueAtTime(62, T.title + 0.03); o.frequency.exponentialRampToValueAtTime(29, T.title + 2.6);
+    const g = ctx.createGain(); adsr(g.gain, T.title + 0.03, 0.01, 0.25, 2.3, 0.95); o.connect(g).connect(sfx); o.start(T.title + 0.03); o.stop(T.title + 2.8); }
+  noiseHit(ctx, T.title + 0.03, sfx, nbB, { type: 'lowpass', f: 140, q: 0.7, a: 0.004, h: 0.05, r: 0.9, gain: 0.8 });
+  smp(ctx, 'impactPunch_heavy_001', T.title + 0.03, space, { rate: 0.45, gain: 0.5, lp: 900 });
+  smp(ctx, 'impactMetal_heavy_000', T.title + 0.03, both, { rate: 0.66, gain: 0.7 });
+  smp(ctx, 'impactPunch_heavy_000', T.title + 0.03, sfx, { rate: 0.75, gain: 0.8 });
+  smp(ctx, 'explosionCrunch_000', T.title + 0.03, both, { rate: 0.8, gain: 0.35, hp: 200 });
+  noiseHit(ctx, T.title + 0.03, both, nb, { type: 'bandpass', f: 1800, q: 0.6, a: 0.001, h: 0.01, r: 0.35, gain: 0.35 });
   noiseHit(ctx, T.title + 0.03, space, nbB, { type: 'lowpass', f: 300, q: 0.7, a: 0.005, h: 0.05, r: 1.8, gain: 0.5 });
   sweep(ctx, T.title + 1.5, 0.7, space, nb, { f0: 6000, f1: 12000, q: 3, gain: 0.03, curve: 'lin', pan0: -0.3, pan1: 0.4, attack: 0.3 });
 
@@ -490,36 +502,35 @@ export function buildGraph(ctx, A, sel, duck) {
     const bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 1600; bp.Q.value = 6; const g = ctx.createGain(); adsr(g.gain, T.tipStart + 0.1, 0.05, 0.3, 0.2, 0.06);
     o.connect(am).connect(bp).connect(g).connect(phys); o.start(T.tipStart + 0.1); m.start(T.tipStart + 0.1); o.stop(T.tipStart + 0.8); m.stop(T.tipStart + 0.8); }
   breath(ctx, T.fall - 0.12, phys, nb, { dur: 0.28, gain: 0.14, inhale: true, f: 1400 });
-  sweep(ctx, T.fall + 0.1, T.impact - T.fall - 0.1, phys, nbP, { f0: 500, f1: 1800, q: 0.8, gain: 0.12 });
+  sweep(ctx, T.fall + 0.05, T.impact - T.fall - 0.12, phys, nbP, { f0: 400, f1: 1500, q: 0.8, gain: 0.06, curve: 'lin', attack: 0.3 });
   // PLUNK
   const tI = T.impact;
-  kick(ctx, tI, phys, { f0: 110, f1: 46, dur: 0.55, gain: 1.0 });
-  kick(ctx, tI, phys, { f0: 62, f1: 26, dur: 1.4, gain: 0.8 });
-  noiseHit(ctx, tI, phys, nbB, { type: 'lowpass', f: 700, q: 0.8, a: 0.001, h: 0.01, r: 0.25, gain: 0.9 });
-  noiseHit(ctx, tI, phys, nb, { type: 'highpass', f: 3500, q: 0.5, a: 0.0005, h: 0.02, r: 0.35, gain: 0.5 });
-  smp(ctx, 'impactWood_heavy_000', tI, phys, { rate: 0.62, gain: 1.0 });
-  smp(ctx, 'impactWood_heavy_001', tI + 0.002, phys, { rate: 0.42, gain: 0.9, lp: 900 });
-  smp(ctx, 'lowFrequency_explosion_000', tI, phys, { rate: 0.55, gain: 0.9, lp: 400 });
-  kick(ctx, tI, phys, { f0: 48, f1: 22, dur: 1.2, gain: 0.9 });
-  smp(ctx, 'slime_000', tI + 0.07, phys, { rate: 0.55, gain: 0.7, lp: 1300 });
-  { const s = ctx.createBufferSource(); s.buffer = nbB; const lp = ctx.createBiquadFilter(); lp.frequency.value = 500; const g = ctx.createGain(); adsr(g.gain, tI + 0.02, 0.04, 0.1, 0.6, 0.5); s.connect(lp).connect(g).connect(phys); s.start(tI + 0.02, 1.3); s.stop(tI + 1.0); }
-  smp(ctx, 'impactPlank_medium_001', tI + 0.004, phys, { rate: 0.7, gain: 0.7 });
-  smp(ctx, 'impactSoft_heavy_000', tI, phys, { rate: 0.6, gain: 0.8 });
-  [[0.006, 0, 0.8, 0.85], [0.018, 1, 0.76, 0.8], [0.04, 2, 0.86, 0.7], [0.075, 4, 0.72, 0.65], [0.12, 3, 0.9, 0.5]].forEach(([dt, i, rt, g]) => smp(ctx, 'impactGlass_heavy_00' + i, tI + dt, phys, { rate: rt, gain: g }));
-  [[0.16, 0, 1.1], [0.24, 1, 0.95], [0.33, 2, 1.2]].forEach(([dt, i, rt]) => smp(ctx, 'impactGlass_medium_00' + i, tI + dt, phys, { rate: rt, gain: 0.45 }));
-  for (let k = 0; k < 9; k++) smp(ctx, 'impactGlass_light_00' + (k % 5), tI + 0.4 + Math.pow(r(), 1.4) * 1.5, phys, { rate: 1.1 + r() * 0.6, gain: 0.12 + r() * 0.15 });
-  smp(ctx, 'slime_000', tI + 0.015, phys, { rate: 0.85, gain: 0.6, lp: 3500 });
-  for (let k = 0; k < 60; k++) { // glass (synth sparkle, lower)
-    const u = r(); const t = tI + 0.004 + Math.pow(u, 2.2) * 1.3; const f = 2200 + r() * 7500;
-    const o = ctx.createOscillator(); o.frequency.value = f; const g = ctx.createGain(); adsr(g.gain, t, 0.0005, 0, 0.04 + r() * 0.12, (0.03 + r() * 0.05) * (1 - 0.7 * u));
-    o.connect(g).connect(phys); o.start(t); o.stop(t + 0.3);
-  }
-  noiseHit(ctx, tI + 0.01, phys, nbP, { type: 'bandpass', f: 500, q: 0.5, a: 0.01, h: 0.06, r: 0.5, gain: 0.5 }); // slosh
-  for (let k = 0; k < 40; k++) { // droplets
-    const t = tI + 0.15 + Math.pow(r(), 1.3) * 1.9; const f0 = 500 + r() * 700;
-    const o = ctx.createOscillator(); o.frequency.setValueAtTime(f0, t); o.frequency.exponentialRampToValueAtTime(f0 * 2.6, t + 0.02);
-    const g = ctx.createGain(); adsr(g.gain, t, 0.001, 0.004, 0.02, 0.05 + r() * 0.06); o.connect(g).connect(phys); o.start(t); o.stop(t + 0.05);
-  }
+  // PLUNK is the loudest, heaviest hit in the film: every layer goes through its own impact compressor so the body
+  // and the splash sit up against the glass transients (lower crest factor, more weight at the same true peak).
+  const smashIn = ctx.createGain();
+  const smashComp = ctx.createDynamicsCompressor(); smashComp.threshold.value = -22; smashComp.knee.value = 6; smashComp.ratio.value = 5; smashComp.attack.value = 0.004; smashComp.release.value = 0.18;
+  const smashMake = ctx.createGain(); smashMake.gain.value = 2.4;
+  smashIn.connect(smashComp).connect(smashMake).connect(phys);
+  // recorded layers (CC0): heavy floor thud, a thick glass vessel shattering, water thrown on boards, shards settling
+  smp(ctx, 'bfh1_hit_01', tI, smashIn, { gain: 1.6 });
+  smp(ctx, 'bfh1_wood_hit_03', tI + 0.004, smashIn, { rate: 0.9, gain: 1.1 });
+  kick(ctx, tI, smashIn, { f0: 110, f1: 46, dur: 0.5, gain: 1.0 });
+  { const o = ctx.createOscillator(); o.type = 'sine'; o.frequency.setValueAtTime(95, tI); o.frequency.exponentialRampToValueAtTime(58, tI + 0.25);
+    const g = ctx.createGain(); adsr(g.gain, tI, 0.001, 0.02, 0.3, 1.2); o.connect(g).connect(smashIn); o.start(tI); o.stop(tI + 0.4); }
+  smp(ctx, 'bfh1_glass_breaking_06', tI + 0.004, smashIn, { gain: 0.6, lp: 7000 });
+  smp(ctx, 'bfh1_glass_breaking_04', tI + 0.022, smashIn, { rate: 0.94, gain: 0.4, lp: 7000 });
+  smp(ctx, 'bfh1_glass_breaking_01', tI + 0.07, smashIn, { rate: 1.04, gain: 0.3, lp: 7000 });
+  smp(ctx, 'water_splash_03', tI + 0.03, smashIn, { gain: 2.0 });
+  smp(ctx, 'water_splash_11', tI + 0.07, smashIn, { rate: 0.95, gain: 1.6 });
+  smp(ctx, 'water_splash_05', tI + 0.13, smashIn, { rate: 0.97, gain: 1.0 });
+  // the metal base knocks as it rocks to rest (matches the picture's settle)
+  for (const [dt, g, rt] of [[0.21, 0.5, 1.25], [0.42, 0.32, 1.35], [0.6, 0.18, 1.45]]) smp(ctx, 'impactMetal_medium_000', tI + dt, smashIn, { rate: rt, gain: g, lp: 5000 });
+  smp(ctx, 'bfh1_glass_falling_02', tI + 0.38, smashIn, { gain: 0.45 });
+  for (let k = 0; k < 6; k++) smp(ctx, 'impactGlass_light_00' + (k % 5), tI + 0.55 + Math.pow(r(), 1.3) * 1.2, smashIn, { rate: 1.2 + r() * 0.5, gain: 0.06 + r() * 0.08 });
+  { const rc = ctx.createConvolver(); rc.buffer = makeIR(ctx, 0.9, 6.5, 321, 0.006, 0.8); const rg = ctx.createGain(); rg.gain.value = 0.3; rc.connect(rg).connect(bus.room);
+    const send = ctx.createGain(); send.gain.value = 1; send.connect(rc);
+    smp(ctx, 'bfh1_hit_01', tI, send, { gain: 0.8 });
+    smp(ctx, 'bfh1_glass_breaking_06', tI + 0.004, send, { gain: 0.6 }); }
   tine(ctx, tI + 0.55, NOTE.E * 0.94, phys, { gain: 0.09, dur: 2.2, detune: -60, sag: 80 }); // the last note of the music box, broken
   // the hand: the hum of the feed swells (she is thriving somewhere in the cables)
   { const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, T.handIn - 0.4); g.gain.exponentialRampToValueAtTime(0.2, T.eyeCut - 0.02); g.gain.linearRampToValueAtTime(0.0001, T.eyeCut);
@@ -594,7 +605,7 @@ export async function renderMix(loadArrayBuffer) {
   let gains = windows.map((w, k) => Math.min(1, dbToGain((sp[k] - 13.0) - mu0[k])));
   let duck, music1, margins;
   for (let it = 0; it < 4; it++) {
-    duck = { music: curveFor(gains, -40), sfx: curveFor(windows.map(() => dbToGain(-4)), -4) };
+    duck = { music: curveFor(gains, -40), sfx: curveFor(windows.map(() => dbToGain(-9)), -9), dip: curveFor(windows.map(() => 0), -120) };
     music1 = await mk('music', duck);
     margins = windows.map((w, k) => sp[k] - rms(music1, w.a, w.b));
     if (margins.every(m => m >= 12.5)) break;

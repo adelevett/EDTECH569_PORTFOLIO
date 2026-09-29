@@ -48,7 +48,7 @@ Everything below runs from `build/`. It needs Node 22, Python 3.11 and ffmpeg. T
 - Runtime: 29.000 s (870 frames at 30 fps, title card included). The audio track is 29.000 s and sample-aligned with the picture.
 - Loudness: music sits at least 13.0 dB under speech in all four dialogue windows. Master sample peak −1.63 dBFS, true peak
   −1.52 dBTP, measured on the audio decoded from the MP4.
-- Sync: every hit lands 0–56 ms after its picture cut (impact, cuts, PLUCK, PLUNK, eye snap).
+- Sync: every hit lands between −7 ms and +56 ms of its picture cut (flash impact, montage cuts, PLUCK, PLUNK, eye snap).
 - Clean: no console errors across the 870-frame render or the `file://` playback test.
 - Spend: $2.3615 of the $10 cap. The build ledger and OpenRouter's key-usage endpoint agree.
 
@@ -57,7 +57,8 @@ Everything below runs from `build/`. It needs Node 22, Python 3.11 and ffmpeg. T
 - Voices: Google Gemini 3.8 Flash TTS (Leda as Alpha, Fenrir as Bravo, Despina as Digitail Rott), via OpenRouter.
 - Score bed: Google Lyria 3 Pro Preview, via OpenRouter. The motif, braams, music box and all sync-critical sound design are
   synthesised in Web Audio.
-- Foley one-shots: Kenney *Impact Sounds* and *Sci-fi Sounds*, CC0 (licence files in `audio/stems/cc0/`).
+- Foley one-shots, all CC0 (licence files in `audio/stems/cc0/`): Kenney *Impact Sounds* and *Sci-fi Sounds*, plus rubberduck's
+  *40 CC0 water / splash / slime SFX* and *75 CC0 breaking / falling / hit SFX* (OpenGameArt) for the PLUNK.
 - Fonts: Cinzel, Silkscreen, VT323, IM Fell English SC, Caveat, Share Tech Mono, Cormorant Garamond (SIL OFL 1.1) and Special
   Elite (Apache 2.0), all via Fontsource.
 - Three.js (MIT). Depth Anything V2 (Apache 2.0).
