@@ -46,11 +46,12 @@ Everything below runs from `build/`. It needs Node 22, Python 3.11 and ffmpeg. T
 
 ## Measured (final QA)
 - Runtime: 29.000 s (870 frames at 30 fps, title card included). The audio track is 29.000 s and sample-aligned with the picture.
-- Loudness: music sits at least 13.0 dB under speech in all four dialogue windows. Master sample peak −1.63 dBFS, true peak
-  −1.52 dBTP, measured on the audio decoded from the MP4.
+- Loudness: music sits at least 13.1 dB under speech in all four dialogue windows. Master sample peak −1.57 dBFS, true peak
+  −1.52 dBTP, measured on the audio decoded from the MP4 (sample-aligned with `audio/trailer_mix.wav`).
 - Sync: every hit lands between −7 ms and +56 ms of its picture cut (flash impact, montage cuts, PLUCK, PLUNK, eye snap).
 - Clean: no console errors across the 870-frame render or the `file://` playback test.
-- Spend: $2.3615 of the $10 cap. The build ledger and OpenRouter's key-usage endpoint agree.
+- Spend: $2.39 of the $10 cap: $2.36 for generation (images, voices, score) and $0.03 for audio-model listening checks.
+  The build ledger and OpenRouter's key-usage endpoint agree.
 
 ## Credits and licences
 - Images: OpenAI GPT Image 2.5 Sunburst, via OpenRouter, from the three reference paintings in this repo.
